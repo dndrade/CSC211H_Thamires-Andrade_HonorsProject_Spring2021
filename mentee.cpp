@@ -1,8 +1,8 @@
 #include "mentee.h"
 
-Mentee::Mentee()
+Mentee::Mentee(string major)
 {
-
+    this->major = major;
 }
 
 Mentee::~Mentee()
@@ -10,12 +10,3 @@ Mentee::~Mentee()
 
 }
 
-string Mentee::getMajor()
-{
-    return major;
-}
-
-void Mentee::setMajor(string major)
-{
-    this->major = major;
-}

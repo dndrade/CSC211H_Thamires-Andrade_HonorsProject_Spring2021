@@ -6,11 +6,9 @@
 class Mentee : public Person
 {
 public:
-    Mentee();
+    Mentee() : Person(){};
+    Mentee(string major);
     ~Mentee();
-
-    string getMajor();
-    void setMajor(string major);
 
 private:
     string major;

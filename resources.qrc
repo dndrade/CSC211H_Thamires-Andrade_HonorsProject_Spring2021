@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/images">
         <file>images/home.svg</file>
+        <file>images/cuny-hackathon.png</file>
+        <file>images/cpp-logo.svg</file>
+        <file>images/Qt_logo_2016.svg</file>
+        <file>images/mysql-logo-vector.svg</file>
     </qresource>
 </RCC>
