@@ -48,13 +48,15 @@ private slots:
 
     void on_clear_lines_clicked();
 
+    void clearLineEdits();
+
     void on_delete_selected_clicked();
 
     void on_listView_mentors_clicked(const QModelIndex &index);
 
-
-
     void on_searchMentor_Button_clicked();
+
+    void on_mentor_searchTerm_textEdited(const QString &arg1);
 
 private:
     Ui::home *ui;
@@ -62,6 +64,6 @@ private:
     QSqlQueryModel *querymodel;
     QSqlTableModel *mentorTable;
     QSqlTableModel *menteeTable;
-
+    QSqlTableModel *findMentorTable;
 };
 #endif // HOME_H

@@ -9,7 +9,7 @@ home::home(QWidget *parent)
 
     //***********************************************
     //     Load the group page tables with data     *
-    //       data can be edited in the tables       *
+    //        (can be edited in the tables)         *
     //***********************************************
 
     // Connect to database
@@ -20,11 +20,13 @@ home::home(QWidget *parent)
     mentorTable->setTable("mentors");
     mentorTable->select();
 
+    // Specify the columns to be shown
     ui->mentorTable_group->setModel(mentorTable);
     ui->mentorTable_group->setColumnHidden(0, true);
     ui->mentorTable_group->setColumnHidden(3, true);
     ui->mentorTable_group->setColumnHidden(4, true);
 
+    // Change the column headers
     mentorTable->setHeaderData(1, Qt::Horizontal, tr("Name"));
     mentorTable->setHeaderData(2, Qt::Horizontal, tr("Surname"));
     mentorTable->setHeaderData(5, Qt::Horizontal, tr("Topic"));
@@ -35,12 +37,13 @@ home::home(QWidget *parent)
     menteeTable->setTable("mentees");
     menteeTable->select();
 
-
+    // Specify the columns to be shown
     ui->menteeTable_group->setModel(menteeTable);
     ui->menteeTable_group->setColumnHidden(0, true);
     ui->menteeTable_group->setColumnHidden(3, true);
     ui->menteeTable_group->setColumnHidden(4, true);
 
+    // Change the column headers
     menteeTable->setHeaderData(1, Qt::Horizontal, tr("Name"));
     menteeTable->setHeaderData(2, Qt::Horizontal, tr("Surname"));
     menteeTable->setHeaderData(5, Qt::Horizontal, tr("Topic"));
@@ -96,12 +99,14 @@ void home::on_aboutPage_buttom_clicked()
 // Assigns the mentee role to the participant
 void home::on_mentee_role_clicked()
 {
-        this->isMentee = true;
+     this->isMentee = true;
+     this->isMentor = false;
 }
 // Assigns the mentor role to the participant
 void home::on_mentor_role_clicked()
 {
     this->isMentor = true;
+    this->isMentee = false;
 }
 
 //******************************************************************
@@ -110,7 +115,8 @@ void home::on_mentor_role_clicked()
 //******************************************************************
 void home::on_insert_participant_clicked()
 {
-    on_mentee_role_clicked();
+//    on_mentee_role_clicked();
+//    on_mentor_role_clicked();
 
     // Get placeholder variables
     QString firstName = ui->first_name->text();
@@ -352,16 +358,66 @@ void home::on_clear_lines_clicked()
     ui->first_name->clear();
     ui->last_name->clear();
     ui->email->clear();
-    ui->choose_major->clear();
-    ui->company->clear();
     ui->group_id->clear();
-    ui->topic->clear();
+    ui->company->clear();
+}
+
+// Clear line edits without pressing a buttom
+void home::clearLineEdits()
+{
+    ui->first_name->clear();
+    ui->last_name->clear();
+    ui->email->clear();
+    ui->group_id->clear();
+    ui->company->clear();
 }
 
 // Function to delete user needed
 void home::on_delete_selected_clicked()
 {
+    on_mentee_role_clicked();
 
+    // Set placeholder variables
+    QString firstName = ui->first_name->text();
+
+    if (isMentee == true)
+    {
+        // Connect to database
+        connectDatabase();
+        // Run editMentee Query
+        QSqlQuery deleteMentee;
+        deleteMentee.prepare("DELETE FROM mentees WHERE firstName='"+firstName+"'");
+
+        if(deleteMentee.exec())
+        {
+            QMessageBox::information(this, "Success", "Mentee has been deleted.");
+            database.close();
+            clearLineEdits();
+        }
+        else
+        {
+            QMessageBox::critical(this, tr("error::"), deleteMentee.lastError().text());
+        }
+    }
+     if(isMentor == true)
+     {
+         // Connect to database
+         connectDatabase();
+         // Run editMentee Query
+         QSqlQuery deleteMentor;
+         deleteMentor.prepare("DELETE FROM mentors WHERE firstName='"+firstName+"'");
+
+         if(deleteMentor.exec())
+         {
+             QMessageBox::information(this, "Success", "Mentor has been deleted.");
+             database.close();
+             clearLineEdits();
+         }
+         else
+         {
+             QMessageBox::critical(this, tr("error::"), deleteMentor.lastError().text());
+         }
+     }
 }
 
 
@@ -378,9 +434,21 @@ void home::on_listView_mentors_clicked(const QModelIndex &index)
 void home::on_searchMentor_Button_clicked()
 {
     QString mentorKeyword = ui->mentor_searchTerm->text();
-    mentorTable->setFilter("SELECT firstName, lastName, topic, group WHERE firstName='"+mentorKeyword+"' or "
+    //mentorTable->setTable("mentors");
+    findMentorTable->setFilter("SELECT FROM mentors firstName, lastName, topic, group WHERE firstName='"+mentorKeyword+"' or "
 "                               lastName='"+mentorKeyword+"' or topic='"+mentorKeyword+"'");
-    ui->mentorTable_group->setModel(mentorTable);
+
+    //findMentorTable->setTable("mentors");
+    //findMentorTable->select();
     //ui->mentorTable_group->show();
+}
+
+
+void home::on_mentor_searchTerm_textEdited(const QString &arg1)
+{
+    mentorTable->setFilter("SELECT firstName, lastName, topic, group FROM mentors WHERE firstName='"+arg1+"' or "
+"                               lastName='"+arg1+"' or topic='"+arg1+"'");
+    //findMentorTable->setTable("mentors");
+    mentorTable->select();
 }
 
