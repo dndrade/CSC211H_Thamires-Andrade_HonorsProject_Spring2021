@@ -84,11 +84,7 @@ void home::on_add_participant_butom_clicked()
 // When buttoon is clicked, program gois to add mentor page
 void home::on_groupPage_buttom_clicked()
 {
-    //ui->pagesWidget->setCurrentIndex(2);
-    hide();
-    GroupPage = new Dialog(this);
-    GroupPage->show();
-
+    ui->pagesWidget->setCurrentIndex(2);
 }
 
 // When buttoon is clicked, program gois to group page
@@ -228,6 +224,7 @@ void home::on_load_participantList_clicked()
 //************************************************************************
 void home::on_listView_mentees_doubleClicked(const QModelIndex &index)
 {
+    // Get user data from list, assign to a variable
     QString menteeDataDisplay = ui->listView_mentees->model()->data(index).toString();
     // Connect to database
     connectDatabase();
@@ -376,4 +373,14 @@ void home::on_listView_mentors_clicked(const QModelIndex &index)
 
 
 
+
+
+void home::on_searchMentor_Button_clicked()
+{
+    QString mentorKeyword = ui->mentor_searchTerm->text();
+    mentorTable->setFilter("SELECT firstName, lastName, topic, group WHERE firstName='"+mentorKeyword+"' or "
+"                               lastName='"+mentorKeyword+"' or topic='"+mentorKeyword+"'");
+    ui->mentorTable_group->setModel(mentorTable);
+    //ui->mentorTable_group->show();
+}
 

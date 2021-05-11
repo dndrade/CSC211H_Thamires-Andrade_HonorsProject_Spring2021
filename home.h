@@ -3,7 +3,6 @@
 
 #include <person.h>
 #include <mentee.h>
-#include <dialog.h>
 #include <QDialog>
 #include <QtSql>
 #include <QSqlDatabase>
@@ -53,10 +52,9 @@ private slots:
 
     void on_listView_mentors_clicked(const QModelIndex &index);
 
-//    void loadGroupTables();
-    void X();
 
 
+    void on_searchMentor_Button_clicked();
 
 private:
     Ui::home *ui;
@@ -65,11 +63,5 @@ private:
     QSqlTableModel *mentorTable;
     QSqlTableModel *menteeTable;
 
-    Dialog *GroupPage;
 };
-
-inline void home::X()
-{
-
-}
 #endif // HOME_H
