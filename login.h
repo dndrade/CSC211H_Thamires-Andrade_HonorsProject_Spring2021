@@ -3,7 +3,10 @@
 
 #include <QDialog>
 #include <home.h>
-
+//**************************************************
+//  This class acepts a username and password and  *
+//   compares with data stored inside a database   *
+//**************************************************
 namespace Ui {
 class Login;
 }

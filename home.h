@@ -24,7 +24,7 @@ public:
     bool isMentee = false, isMentor = false;
 
 private slots:
-    void on_home_buttom_clicked();
+    void on_homePage_butom_clicked();
 
     void on_add_participant_butom_clicked();
 
@@ -57,6 +57,12 @@ private slots:
     void on_searchMentor_Button_clicked();
 
     void on_mentor_searchTerm_textEdited(const QString &arg1);
+
+    void on_groupMembersTable_activated(const QModelIndex &index);
+
+    void on_comboBox_activated(int index);
+
+    void on_load_groupTables_clicked();
 
 private:
     Ui::home *ui;

@@ -5,13 +5,14 @@
 
 class Mentee : public Person
 {
-public:
-    Mentee() : Person(){};
-    Mentee(string major);
-    ~Mentee();
-
 private:
     string major;
-};
+    
+public:
+    Mentee(int id, string firstName, string lastName, string email, string major, string topic, int group_id);
+    ~Mentee();
+    void print();
 
+
+};
 #endif // MENTEE_H

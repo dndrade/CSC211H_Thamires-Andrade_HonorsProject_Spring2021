@@ -7,47 +7,47 @@ home::home(QWidget *parent)
 {
     ui->setupUi(this);
 
-    //***********************************************
-    //     Load the group page tables with data     *
-    //        (can be edited in the tables)         *
-    //***********************************************
+//    //***********************************************
+//    //     Load the group page tables with data     *
+//    //        (can be edited in the tables)         *
+//    //***********************************************
 
-    // Connect to database
-    connectDatabase();
+//    // Connect to database
+//    connectDatabase();
 
-    // declare and set table of mentors
-    mentorTable = new QSqlTableModel();
-    mentorTable->setTable("mentors");
-    mentorTable->select();
+//    // declare and set table of mentors
+//    mentorTable = new QSqlTableModel();
+//    mentorTable->setTable("mentors");
+//    mentorTable->select();
 
-    // Specify the columns to be shown
-    ui->mentorTable_group->setModel(mentorTable);
-    ui->mentorTable_group->setColumnHidden(0, true);
-    ui->mentorTable_group->setColumnHidden(3, true);
-    ui->mentorTable_group->setColumnHidden(4, true);
+//    // Specify the columns to be shown
+//    ui->mentorTable_group->setModel(mentorTable);
+//    ui->mentorTable_group->setColumnHidden(0, true);
+//    ui->mentorTable_group->setColumnHidden(3, true);
+//    ui->mentorTable_group->setColumnHidden(4, true);
 
-    // Change the column headers
-    mentorTable->setHeaderData(1, Qt::Horizontal, tr("Name"));
-    mentorTable->setHeaderData(2, Qt::Horizontal, tr("Surname"));
-    mentorTable->setHeaderData(5, Qt::Horizontal, tr("Topic"));
-    mentorTable->setHeaderData(6, Qt::Horizontal, tr("Group"));
+//    // Change the column headers
+//    mentorTable->setHeaderData(1, Qt::Horizontal, tr("Name"));
+//    mentorTable->setHeaderData(2, Qt::Horizontal, tr("Surname"));
+//    mentorTable->setHeaderData(5, Qt::Horizontal, tr("Topic"));
+//    mentorTable->setHeaderData(6, Qt::Horizontal, tr("Group"));
 
-    // declare and set table of mentees
-    menteeTable = new QSqlTableModel();
-    menteeTable->setTable("mentees");
-    menteeTable->select();
+//    // declare and set table of mentees
+//    menteeTable = new QSqlTableModel();
+//    menteeTable->setTable("mentees");
+//    menteeTable->select();
 
-    // Specify the columns to be shown
-    ui->menteeTable_group->setModel(menteeTable);
-    ui->menteeTable_group->setColumnHidden(0, true);
-    ui->menteeTable_group->setColumnHidden(3, true);
-    ui->menteeTable_group->setColumnHidden(4, true);
+//    // Specify the columns to be shown
+//    ui->menteeTable_group->setModel(menteeTable);
+//    ui->menteeTable_group->setColumnHidden(0, true);
+//    ui->menteeTable_group->setColumnHidden(3, true);
+//    ui->menteeTable_group->setColumnHidden(4, true);
 
-    // Change the column headers
-    menteeTable->setHeaderData(1, Qt::Horizontal, tr("Name"));
-    menteeTable->setHeaderData(2, Qt::Horizontal, tr("Surname"));
-    menteeTable->setHeaderData(5, Qt::Horizontal, tr("Topic"));
-    menteeTable->setHeaderData(6, Qt::Horizontal, tr("Group"));
+//    // Change the column headers
+//    menteeTable->setHeaderData(1, Qt::Horizontal, tr("Name"));
+//    menteeTable->setHeaderData(2, Qt::Horizontal, tr("Surname"));
+//    menteeTable->setHeaderData(5, Qt::Horizontal, tr("Topic"));
+//    menteeTable->setHeaderData(6, Qt::Horizontal, tr("Group"));
 }
 
 home::~home()
@@ -73,7 +73,7 @@ void home::connectDatabase()
 }
 
 // When buttoon is clicked, program returns to home page
-void home::on_home_buttom_clicked()
+void home::on_homePage_butom_clicked()
 {
     ui->pagesWidget->setCurrentIndex(0);
 }
@@ -286,7 +286,7 @@ void home::on_listView_mentors_doubleClicked(const QModelIndex &index)
             ui->topic->setCurrentText(mentorDisplayQuery.value(5).toString());
             ui->group_id->setText(mentorDisplayQuery.value(6).toString());
         }
-        database.close();
+        //database.close();
     }
     else
     {
@@ -420,7 +420,7 @@ void home::on_delete_selected_clicked()
      }
 }
 
-
+// REVIEW ALL BELLOW THIS NONE WORKS
 void home::on_listView_mentors_clicked(const QModelIndex &index)
 {
     //QString mentorToDelete = ui->listView_mentors->model()->data(index).toString();
@@ -450,5 +450,83 @@ void home::on_mentor_searchTerm_textEdited(const QString &arg1)
 "                               lastName='"+arg1+"' or topic='"+arg1+"'");
     //findMentorTable->setTable("mentors");
     mentorTable->select();
+}
+
+
+//*****************************************************
+//         Filters a list of mentees by group_id      *
+//*****************************************************
+void home::on_groupMembersTable_activated(const QModelIndex &index)
+{
+
+}
+
+
+void home::on_comboBox_activated(int index)
+{
+    QString currentIndex = QVariant(index).toString();
+    // declare a query for mentees
+    QSqlQueryModel * groupMembers = new QSqlQueryModel();
+
+    // Connect to database
+    connectDatabase();
+
+    QSqlQuery* groupList = new QSqlQuery(database);
+    groupList->prepare("SELECT firstName FROM mentees WHERE group_id='"+currentIndex+"'");
+//    groupList->prepare("SELECT firstName FROM mentors WHERE group_id='"+currentIndex+"'");
+//    groupList->prepare("SELECT mentors.firstName mentees.firstName "
+//                    "FROM mentees,mentors WHERE group_id='"+currentIndex+"' "
+//                     "AND mentors.group_id = mentees.group_id");
+
+    // Execute Query
+    groupList->exec();
+    groupMembers->setQuery(* groupList);
+    ui->groupMembersList->setModel(groupMembers);
+}
+
+
+void home::on_load_groupTables_clicked()
+{
+    //***********************************************
+    //     Load the group page tables with data     *
+    //        (can be edited in the tables)         *
+    //***********************************************
+
+    // Connect to database
+    connectDatabase();
+
+    // declare and set table of mentors
+    mentorTable = new QSqlTableModel();
+    mentorTable->setTable("mentors");
+    mentorTable->select();
+
+    // Specify the columns to be shown
+    ui->mentorTable_group->setModel(mentorTable);
+    ui->mentorTable_group->setColumnHidden(0, true);
+    ui->mentorTable_group->setColumnHidden(3, true);
+    ui->mentorTable_group->setColumnHidden(4, true);
+
+    // Change the column headers
+    mentorTable->setHeaderData(1, Qt::Horizontal, tr("Name"));
+    mentorTable->setHeaderData(2, Qt::Horizontal, tr("Surname"));
+    mentorTable->setHeaderData(5, Qt::Horizontal, tr("Topic"));
+    mentorTable->setHeaderData(6, Qt::Horizontal, tr("Group"));
+
+    // declare and set table of mentees
+    menteeTable = new QSqlTableModel();
+    menteeTable->setTable("mentees");
+    menteeTable->select();
+
+    // Specify the columns to be shown
+    ui->menteeTable_group->setModel(menteeTable);
+    ui->menteeTable_group->setColumnHidden(0, true);
+    ui->menteeTable_group->setColumnHidden(3, true);
+    ui->menteeTable_group->setColumnHidden(4, true);
+
+    // Change the column headers
+    menteeTable->setHeaderData(1, Qt::Horizontal, tr("Name"));
+    menteeTable->setHeaderData(2, Qt::Horizontal, tr("Surname"));
+    menteeTable->setHeaderData(5, Qt::Horizontal, tr("Topic"));
+    menteeTable->setHeaderData(6, Qt::Horizontal, tr("Group"));
 }
 

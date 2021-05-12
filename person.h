@@ -4,19 +4,19 @@
 #include <iostream>
 using namespace std;
 
+
 class Person
 {
-public:
-    Person(){};
-    Person(string firstName, string lastName,
-           string email, string topic, int id, int group_id);
-    ~Person();
-
-
-
-private:
+protected:
     string firstName, lastName, email, topic;
     int id, group_id;
+public:
+    Person(int id, string firstName, string lastName, string email, string topic, int group_id);
+    ~Person();
+    virtual void print();
+
+
+
 };
 
 #endif // PERSON_H
