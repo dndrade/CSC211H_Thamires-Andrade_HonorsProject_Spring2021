@@ -837,7 +837,7 @@ color: rgb(0, 0, 0);</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>490</x>
@@ -1044,7 +1044,7 @@ padding: 5px;</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="add_participant_butom">
+    <widget class="QPushButton" name="participantPage_buttom">
      <property name="geometry">
       <rect>
        <x>60</x>
@@ -1122,7 +1122,7 @@ padding: 5px;</string>
       <string>© 2021</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="homePage_butom">
+    <widget class="QPushButton" name="homePage_buttom">
      <property name="geometry">
       <rect>
        <x>30</x>
