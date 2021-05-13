@@ -1,3 +1,11 @@
+/*
+Thamires Lopes de Andrade
+EMPLID: 23949613
+CSC 221H-1700 [Spring 2021]
+Submitted: May 13th, 2021
+Time Stamp: 5:30pm
+Prof: Dr. Azhar
+*/
 #include "login.h"
 #include "ui_login.h"
 
@@ -31,7 +39,12 @@ void Login::on_pushButton_clicked()
     QString username = ui->username->text();
     QString password = ui->password->text();
 
-    if(loginDB.open())
+    // If database is not open, display the error.
+    if(!loginDB.open())
+    {
+        QMessageBox::critical(this, tr("error::"), loginDB.lastError().text());
+    }
+    else
     {
         // Declare and prepare a new query
         QSqlQuery newLogin(QSqlDatabase::database("Login"));
@@ -53,26 +66,26 @@ void Login::on_pushButton_clicked()
                 QString getUsername = newLogin.value(1).toString();
                 QString getPassword = newLogin.value(2).toString();
 
-                // Compare input from user and stored data in database
-                if (getUsername == username && getPassword == password)
+
+                // Check input STARTING HERE
+                if ((getUsername != username) || (getPassword != password))
                 {
-                    loginDB.close();                    // closes connection to database
+                    QMessageBox::information(this, "Fail", "Invalid name and/or password.");
+                } // UNTIL HERE -->> It's malfunctioning. The error message executes evef with the
+                //                   correct login info.
+
+                // Compare input from user and stored data in database
+                else /*(getUsername == username && getPassword == password)*/
+                {
                     hide();                             // hide login window
                     home *homeWindow = new home;        // declare a new home window object
                     homeWindow->show();                 // display window
                     homeWindow->activateWindow();       // Sets the home window as the active window.
+                    loginDB.close();                    // closes connection to database
                 }
-//                else
-//                {
-//                    QMessageBox::information(this, "Fail", "Invalid name and/or password.");
-//                }
+
             }
         }
     }
-     // If database is not open, display the error.
-    if(!loginDB.open())
-    {
-        QMessageBox::critical(this, tr("error::"), loginDB.lastError().text());
-    }
 }
-
+// End of login.cpp

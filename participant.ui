@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Participants</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/images/images/home.svg</normaloff>:/images/images/home.svg</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(59, 103, 136);</string>
@@ -528,6 +532,8 @@ background-color: rgb(117, 117, 117);</string>
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

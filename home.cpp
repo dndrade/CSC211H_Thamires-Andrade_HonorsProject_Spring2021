@@ -1,3 +1,11 @@
+/*
+Thamires Lopes de Andrade
+EMPLID: 23949613
+CSC 221H-1700 [Spring 2021]
+Submitted: May 13th, 2021
+Time Stamp: 5:30pm
+Prof: Dr. Azhar
+*/
 #include "home.h"
 #include "ui_home.h"
 
@@ -6,6 +14,16 @@ home::home(QWidget *parent)
     , ui(new Ui::home)
 {
     ui->setupUi(this);
+
+    // Set up the hyperlink from home page
+    ui->MakeaThon_Website->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
+    ui->MakeaThon_Website->setOpenExternalLinks(true);
+    ui->MakeaThon_Website->setTextFormat(Qt::RichText);
+    ui->MakeaThon_Website->setText("<a href=\"https://tinyurl.com/make-a-thonBMCC\"> Visit Our Website </a>");
+    ui->MakeaThon_Website->setStyleSheet("color: white;"
+                        "background-color: none;"
+                        "selection-color: orange;"
+                        "selection-background-color: none;");
 }
 
 home::~home()
@@ -64,50 +82,7 @@ void home::backFromParticipant_ViewWindow()
 // When buttoon is clicked, program gois to about page
 void home::on_aboutPage_buttom_clicked()
 {
-    ui->pagesWidget->setCurrentIndex(2);
+    ui->pagesWidget->setCurrentIndex(1);
 }
-
-
-
-////doesnt work
-//void home::on_searchMentor_Button_clicked()
-//{
-//    QString mentorKeyword = ui->mentor_searchTerm->text();
-//    //mentorTable->setTable("mentors");
-//    findMentorTable->setFilter("SELECT FROM mentors firstName, lastName, topic, group WHERE firstName='"+mentorKeyword+"' or "
-//"                               lastName='"+mentorKeyword+"' or topic='"+mentorKeyword+"'");
-
-//    //findMentorTable->setTable("mentors");
-//    //findMentorTable->select();
-//    //ui->mentorTable_group->show();
-//}
-
-////*****************************************************
-////         Filters a list of mentees by group_id      *
-////*****************************************************
-
-//void home::on_comboBox_activated(int index)
-//{
-//    QString currentIndex = QVariant(index).toString();
-//    // declare a query for mentees
-//    QSqlQueryModel * groupMembers = new QSqlQueryModel();
-
-//    // Connect to database
-//    connectDatabase();
-
-//    QSqlQuery* groupList = new QSqlQuery(database);
-//    groupList->prepare("SELECT firstName FROM mentees WHERE group_id='"+currentIndex+"'");
-////    groupList->prepare("SELECT firstName FROM mentors WHERE group_id='"+currentIndex+"'");
-////    groupList->prepare("SELECT mentors.firstName mentees.firstName "
-////                    "FROM mentees,mentors WHERE group_id='"+currentIndex+"' "
-////                     "AND mentors.group_id = mentees.group_id");
-
-//    // Execute Query
-//    groupList->exec();
-//    groupMembers->setQuery(* groupList);
-//    ui->groupMembersList->setModel(groupMembers);
-//}
-
-
-
+// End of home.cpp
 

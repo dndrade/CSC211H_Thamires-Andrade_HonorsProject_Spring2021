@@ -1,7 +1,18 @@
+/*
+Thamires Lopes de Andrade
+EMPLID: 23949613
+CSC 221H-1700 [Spring 2021]
+Submitted: May 13th, 2021
+Time Stamp: 5:30pm
+Prof: Dr. Azhar
+*/
 #ifndef GROUP_H
 #define GROUP_H
 
 #include <QDialog>
+#include <QtSql>
+#include <QSqlDatabase>
+#include <QMessageBox>
 
 namespace Ui {
 class Group;
@@ -16,16 +27,20 @@ public:
     ~Group();
 
 private slots:
+    void connectToDatabase_Group();
 
     void on_groupBack_button_clicked();
 
     void on_groupBack_button_pressed();
+
+    void on_load_groupList_clicked();
 
 signals:
     void groupBack_buttonPressed();
 
 private:
     Ui::Group *ui;
+    QSqlDatabase database;
 
 };
 

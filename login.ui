@@ -11,7 +11,14 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Login</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/images/images/home.svg</normaloff>:/images/images/home.svg</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>4.000000000000000</double>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(100, 100, 100);
@@ -46,7 +53,7 @@ color: rgb(255, 255, 255);</string>
      <string>Login</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -96,6 +103,8 @@ color: rgb(255, 255, 255);</string>
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
