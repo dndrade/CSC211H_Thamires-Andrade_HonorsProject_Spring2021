@@ -15,7 +15,7 @@ home::home(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Set up the hyperlink for home page
+    // Set up the hyperlink from home page
     ui->MakeaThon_Website->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
     ui->MakeaThon_Website->setOpenExternalLinks(true);
     ui->MakeaThon_Website->setTextFormat(Qt::RichText);
@@ -58,7 +58,7 @@ void home::on_groupPage_buttom_clicked()
     groupWindow->show();                 // display window
     groupWindow->activateWindow();       // Sets the group window as the active window.
 
-    // Connect two instances by having groupWindow sending a signal
+    // Connect both instances by having groupWindow sending a signal
     // when "back" buttom is pressed, homeWindow calls viewWindow function
     connect(groupWindow, SIGNAL(groupBack_buttonPressed()), this, SLOT(backFromGroup_ViewWindow()));
 

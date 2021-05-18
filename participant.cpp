@@ -69,7 +69,7 @@ void Participant::on_insert_participant_clicked()
     QString group_id = ui->group_id->text();
 
     // If participant is a mentee, insert them to the mentee table
-    if (ui->mentee_role->isChecked())
+    if (/*isMentee == true*/ ui->mentee_role->isChecked())
     {
         // Connect to database
         connectDatabase();
