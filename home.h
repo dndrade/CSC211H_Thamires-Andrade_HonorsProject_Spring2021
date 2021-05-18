@@ -41,6 +41,8 @@ private slots:
 
     void backFromParticipant_ViewWindow();
 
+    void on_quit_button_clicked();
+
 private:
     Ui::home *ui;
 

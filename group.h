@@ -42,6 +42,11 @@ private:
     Ui::Group *ui;
     QSqlDatabase database;
 
+    QSqlQueryModel *group, *mentors1;
+    QSqlQueryModel *group2, *mentors2;
+    QSqlQueryModel *group3, *mentors3;
+    QSqlQueryModel *group4, *mentors4;
+
 };
 
 #endif // GROUP_H

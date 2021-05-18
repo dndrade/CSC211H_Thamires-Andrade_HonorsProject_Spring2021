@@ -23,7 +23,7 @@
   <widget class="QPushButton" name="clear_lines">
    <property name="geometry">
     <rect>
-     <x>410</x>
+     <x>170</x>
      <y>470</y>
      <width>81</width>
      <height>31</height>
@@ -31,18 +31,18 @@
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
-background-color:  rgb(72, 28, 28);
+background-color: rgb(44, 44, 44);
 border: none;
 padding: 5px;</string>
    </property>
    <property name="text">
-    <string>Clear</string>
+    <string>Clear Fields</string>
    </property>
   </widget>
   <widget class="QPushButton" name="load_participantList">
    <property name="geometry">
     <rect>
-     <x>840</x>
+     <x>800</x>
      <y>470</y>
      <width>81</width>
      <height>31</height>
@@ -61,7 +61,7 @@ padding: 5px;</string>
   <widget class="QPushButton" name="update_participant_data">
    <property name="geometry">
     <rect>
-     <x>500</x>
+     <x>410</x>
      <y>470</y>
      <width>81</width>
      <height>31</height>
@@ -459,6 +459,9 @@ background-color: rgb(223, 223, 223);</string>
     <property name="text">
      <string>Mentee</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
@@ -498,7 +501,7 @@ background-color: rgb(223, 223, 223);</string>
   <widget class="QPushButton" name="delete_selected">
    <property name="geometry">
     <rect>
-     <x>750</x>
+     <x>500</x>
      <y>470</y>
      <width>81</width>
      <height>31</height>

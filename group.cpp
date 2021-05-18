@@ -52,75 +52,87 @@ void Group::connectToDatabase_Group()
 //    This function will load the tables with its respective group members     *
 //******************************************************************************
 
-//DR.AZHAR/NATHAN --> Currently, it only loads the contents of ONE table from the
-//                database. This is due to the FROM statement not being set
-//                properly by me. Why? I still need to learn how to get and join
-//                the contents of two different tables in SQL. In this case, the
-//                mentee and mentor table.
-
-
 void Group::on_load_groupList_clicked()
 {
-
-    //*********************************************
-    //         Loads Group 1 Members              *
-    //*********************************************
     // declare a query for group 1
     QSqlQueryModel * group = new QSqlQueryModel();
+    QSqlQueryModel * mentors1 = new QSqlQueryModel();
+    // declare a second query for group 2
+    QSqlQueryModel * group2 = new QSqlQueryModel();
+    QSqlQueryModel * mentors2 = new QSqlQueryModel();
+
+    // declare a second query for group 3
+    QSqlQueryModel * group3 = new QSqlQueryModel();
+    QSqlQueryModel * mentors3 = new QSqlQueryModel();
+
+    // declare a second query for group 4
+    QSqlQueryModel * group4 = new QSqlQueryModel();
+    QSqlQueryModel * mentors4 = new QSqlQueryModel();
 
     // Connect to database
     connectToDatabase_Group();
 
     QSqlQuery* groupList = new QSqlQuery(database);
-    groupList->prepare("SELECT firstName FROM mentees WHERE group_id = 1 ");
-
-    // Execute Query
-    groupList->exec();
-    group->setQuery(*groupList);
-    ui->listView_Group1->setModel(group);
-
-
-    //*********************************************
-    //         Loads Group 2 Members              *
-    //*********************************************
-    // declare a second query for group 2
-    QSqlQueryModel * group2 = new QSqlQueryModel();
+    QSqlQuery* group_mentors1 = new QSqlQuery(database);
 
     QSqlQuery* groupList_2 = new QSqlQuery(database);
-    groupList_2->prepare("SELECT firstName FROM mentors WHERE group_id = 2 ");
-
-    // Execute Query
-    groupList_2->exec();
-    group2->setQuery(*groupList_2);
-    ui->listView_Group2->setModel(group2);
-
-    //*********************************************
-    //         Loads Group 3 Members              *
-    //*********************************************
-    // declare a second query for group 3
-    QSqlQueryModel * group3 = new QSqlQueryModel();
+    QSqlQuery* group_mentors2 = new QSqlQuery(database);
 
     QSqlQuery* groupList_3 = new QSqlQuery(database);
-    groupList_3->prepare("SELECT firstName FROM mentees WHERE group_id = 3 ");
-
-    // Execute Query
-    groupList_3->exec();
-    group3->setQuery(*groupList_3);
-    ui->listView_Group3->setModel(group3);
-
-    //*********************************************
-    //         Loads Group 4 Members              *
-    //*********************************************
-    // declare a second query for group 4
-    QSqlQueryModel * group4 = new QSqlQueryModel();
+    QSqlQuery* group_mentors3 = new QSqlQuery(database);
 
     QSqlQuery* groupList_4 = new QSqlQuery(database);
-    groupList_4->prepare("SELECT firstName FROM mentees WHERE group_id = 4 ");
+    QSqlQuery* group_mentors4 = new QSqlQuery(database);
 
-    // Execute Query
+    // Prepare the date to be shown in the tables
+    groupList->prepare("SELECT firstName FROM mentees WHERE group_id = 1");
+    group_mentors1->prepare("SELECT firstName FROM mentors WHERE group_id = 1");
+
+    groupList_2->prepare("SELECT firstName FROM mentees WHERE group_id = 2");
+    group_mentors2->prepare("SELECT firstName FROM mentors WHERE group_id = 2");
+
+    groupList_3->prepare("SELECT firstName FROM mentees WHERE group_id = 3");
+    group_mentors3->prepare("SELECT firstName FROM mentors WHERE group_id = 3");
+
+    groupList_4->prepare("SELECT firstName FROM mentees WHERE group_id = 4");
+    group_mentors4->prepare("SELECT firstName FROM mentors WHERE group_id = 4");
+
+    // Execute and display queries
+    groupList->exec();
+    group_mentors1->exec();
+
+    groupList_2->exec();
+    group_mentors2->exec();
+
+    groupList_3->exec();
+    group_mentors3->exec();
+
     groupList_4->exec();
+    group_mentors4->exec();
+
+    group->setQuery(*groupList);
+    mentors1->setQuery(*group_mentors1);
+
+    group2->setQuery(*groupList_2);
+    mentors2->setQuery(*group_mentors2);
+
+    group3->setQuery(*groupList_3);
+    mentors3->setQuery(*group_mentors3);
+
     group4->setQuery(*groupList_4);
+    mentors4->setQuery(*group_mentors4);
+
+    ui->listView_Group1->setModel(group);
+    ui->mentor_Group1->setModel(mentors1);
+
+    ui->listView_Group2->setModel(group2);
+    ui->mentor_Group2->setModel(mentors2);
+
+    ui->listView_Group3->setModel(group3);
+    ui->mentor_Group3->setModel(mentors3);
+
     ui->listView_Group4->setModel(group4);
+    ui->mentor_Group4->setModel(mentors4);
 
     database.close(); // close database
 }

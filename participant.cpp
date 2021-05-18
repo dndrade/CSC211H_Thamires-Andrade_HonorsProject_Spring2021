@@ -52,27 +52,12 @@ void Participant::connectDatabase()
     }
 }
 
-// Assigns the mentee role to the participant
-void Participant::on_mentee_role_clicked()
-{
-     this->isMentee = true;
-     this->isMentor = false;
-}
-// Assigns the mentor role to the participant
-void Participant::on_mentor_role_clicked()
-{
-    this->isMentor = true;
-    this->isMentee = false;
-}
-
 //******************************************************************
 // When button is clicked, a mentee or mentor will be added to the *
 //                       database                                  *
 //******************************************************************
 void Participant::on_insert_participant_clicked()
 {
-//    on_mentee_role_clicked();
-//    on_mentor_role_clicked();
 
     // Get placeholder variables
     QString firstName = ui->first_name->text();
@@ -84,7 +69,7 @@ void Participant::on_insert_participant_clicked()
     QString group_id = ui->group_id->text();
 
     // If participant is a mentee, insert them to the mentee table
-    if (isMentee == true)
+    if (/*isMentee == true*/ ui->mentee_role->isChecked())
     {
         // Connect to database
         connectDatabase();
@@ -113,7 +98,7 @@ void Participant::on_insert_participant_clicked()
         database.close();
     }
     // If participant is a mentor, insert them to the mentor table
-    if (isMentor==true)
+    if (ui->mentor_role->isChecked())
     {
         // Connect to database
         connectDatabase();
@@ -133,13 +118,12 @@ void Participant::on_insert_participant_clicked()
         if(insert.exec())
         {
             QMessageBox::information(this, "Inserted", "Mentor was added successfully.");
+            database.close();
         }
         else
         {
             QMessageBox::information(this, "Fail", "Unable to add entry.");
         }
-
-        database.close();
     }
 }
 
@@ -178,7 +162,6 @@ void Participant::on_load_participantList_clicked()
     modal2->setQuery(*mentorList);
     ui->listView_mentors->setModel(modal2);
 
-    database.close(); // close database
 }
 
 //************************************************************************
@@ -219,6 +202,9 @@ void Participant::on_listView_mentees_doubleClicked(const QModelIndex &index)
 //************************************************************************
 // When a participant name is double clicked, MENTOR DATA is displayed   *
 //************************************************************************
+
+// NATHAN/DR.AZHAR --> Currently double click action does not work for mentors.
+
 void Participant::on_listView_mentors_doubleClicked(const QModelIndex &index)
 {
     QString mentorDataDisplay = ui->listView_mentees->model()->data(index).toString();
@@ -242,7 +228,7 @@ void Participant::on_listView_mentors_doubleClicked(const QModelIndex &index)
             ui->topic->setCurrentText(mentorDisplayQuery.value(5).toString());
             ui->group_id->setText(mentorDisplayQuery.value(6).toString());
         }
-        //database.close();
+        database.close();
     }
     else
     {
@@ -252,8 +238,6 @@ void Participant::on_listView_mentors_doubleClicked(const QModelIndex &index)
 
 void Participant::on_update_participant_data_clicked()
 {
-    on_mentee_role_clicked();
-
     // Set placeholder variables
     QString firstName = ui->first_name->text();
     QString lastName = ui->last_name->text();
@@ -263,12 +247,12 @@ void Participant::on_update_participant_data_clicked()
     QString company = ui->company->text();
     QString group_id = ui->group_id->text();
 
+    // Connect to database
+    connectDatabase();
 
-
-    if (isMentee == true)
+    // If the participant is a mentor
+    if (ui->mentee_role->isChecked())
     {
-        // Connect to database
-        connectDatabase();
         // Run editMentee Query
         QSqlQuery editMentee;
         editMentee.prepare("UPDATE mentees SET firstName='"+firstName+"',"
@@ -286,10 +270,9 @@ void Participant::on_update_participant_data_clicked()
             QMessageBox::critical(this, tr("error::"), editMentee.lastError().text());
         }
     }
-     if(isMentor == true)
+    // If the participant is a mentor
+     if(ui->mentor_role->isChecked())
      {
-         // Connect to database
-         connectDatabase();
          // Run editMentee Query
          QSqlQuery editMentor;
          editMentor.prepare("UPDATE mentors SET firstName='"+firstName+"',"
@@ -331,15 +314,14 @@ void Participant::clearLineEdits()
 // Function to delete user needed
 void Participant::on_delete_selected_clicked()
 {
-    on_mentee_role_clicked();
-
     // Set placeholder variables
     QString firstName = ui->first_name->text();
 
-    if (isMentee == true)
+    // Connect to database
+    connectDatabase();
+    // If the participant is a mentee
+    if (ui->mentee_role->isChecked())
     {
-        // Connect to database
-        connectDatabase();
         // Run editMentee Query
         QSqlQuery deleteMentee;
         deleteMentee.prepare("DELETE FROM mentees WHERE firstName='"+firstName+"'");
@@ -355,10 +337,9 @@ void Participant::on_delete_selected_clicked()
             QMessageBox::critical(this, tr("error::"), deleteMentee.lastError().text());
         }
     }
-     if(isMentor == true)
+    // If the participant is a mentor
+     if(ui->mentor_role->isChecked())
      {
-         // Connect to database
-         connectDatabase();
          // Run editMentee Query
          QSqlQuery deleteMentor;
          deleteMentor.prepare("DELETE FROM mentors WHERE firstName='"+firstName+"'");

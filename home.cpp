@@ -84,5 +84,11 @@ void home::on_aboutPage_buttom_clicked()
 {
     ui->pagesWidget->setCurrentIndex(1);
 }
+
+void home::on_quit_button_clicked()
+{
+    QCoreApplication::quit();
+}
+
 // End of home.cpp
 

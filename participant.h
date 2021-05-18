@@ -26,7 +26,6 @@ public:
     explicit Participant(QWidget *parent = nullptr);
     ~Participant();
     void connectDatabase();
-    bool isMentee = false, isMentor = false;
 
 private slots:
     void on_listView_mentees_doubleClicked(const QModelIndex &index);
@@ -34,10 +33,6 @@ private slots:
     void on_update_participant_data_clicked();
 
     void on_insert_participant_clicked();
-
-    void on_mentee_role_clicked();
-
-    void on_mentor_role_clicked();
 
     void on_load_participantList_clicked();
 

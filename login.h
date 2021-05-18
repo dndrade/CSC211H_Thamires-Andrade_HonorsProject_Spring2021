@@ -1,25 +1,18 @@
-/*
-Thamires Lopes de Andrade
-EMPLID: 23949613
-CSC 221H-1700 [Spring 2021]
-Submitted: May 13th, 2021
-Time Stamp: 5:30pm
-Prof: Dr. Azhar
-*/
 #ifndef LOGIN_H
 #define LOGIN_H
 
+#include <QMainWindow>
+#include <QMessageBox>
 #include <QDialog>
-#include <home.h>
-//**************************************************
-//  This class acepts a username and password and  *
-//   compares with data stored inside a database   *
-//**************************************************
+#include <QtSql>
+#include <QSqlDatabase>
+#include "home.h"
+
 namespace Ui {
 class Login;
 }
 
-class Login : public QDialog
+class Login : public QMainWindow
 {
     Q_OBJECT
 
@@ -28,10 +21,11 @@ public:
     ~Login();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_signIn_clicked();
 
 private:
     Ui::Login *ui;
+    home *homeWindow;
     QSqlDatabase loginDB;
 };
 
