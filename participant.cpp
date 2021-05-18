@@ -69,7 +69,7 @@ void Participant::on_insert_participant_clicked()
     QString group_id = ui->group_id->text();
 
     // If participant is a mentee, insert them to the mentee table
-    if (/*isMentee == true*/ ui->mentee_role->isChecked())
+    if (ui->mentee_role->isChecked())
     {
         // Connect to database
         connectDatabase();
@@ -78,7 +78,7 @@ void Participant::on_insert_participant_clicked()
         QSqlQuery insert;
 
         insert.prepare("INSERT INTO mentees(firstName, lastName, email, major, topic, group_id)"
-                        "VALUES (:firstName, :lastName, :email, :major, :topic, group_id)");
+                        "VALUES (:firstName, :lastName, :email, :major, :topic, :group_id)");
         insert.bindValue(":firstName", firstName);
         insert.bindValue(":lastName", lastName);
         insert.bindValue(":email", email);
@@ -107,7 +107,7 @@ void Participant::on_insert_participant_clicked()
         QSqlQuery insert;
 
         insert.prepare("INSERT INTO mentors(firstname, lastname, email, company, topic, group_id)"
-                        "VALUES (:firstName, :lastName, :email, :company, :topic, group_id)");
+                        "VALUES (:firstName, :lastName, :email, :company, :topic, :group_id)");
         insert.bindValue(":firstName", firstName);
         insert.bindValue(":lastName", lastName);
         insert.bindValue(":email", email);

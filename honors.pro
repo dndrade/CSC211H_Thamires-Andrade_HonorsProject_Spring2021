@@ -13,19 +13,13 @@ SOURCES += \
     login.cpp \
     main.cpp \
     home.cpp \
-    mentee.cpp \
-    mentor.cpp \
     participant.cpp \
-    person.cpp
 
 HEADERS += \
     group.h \
     home.h \
     login.h \
-    mentee.h \
-    mentor.h \
     participant.h \
-    person.h
 
 FORMS += \
     group.ui \
@@ -40,4 +34,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
-    

@@ -9,8 +9,6 @@ Prof: Dr. Azhar
 #ifndef HOME_H
 #define HOME_H
 
-#include <person.h>
-#include <mentee.h>
 #include <group.h>
 #include <participant.h>
 #include <QMainWindow>

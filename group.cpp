@@ -84,7 +84,7 @@ void Group::on_load_groupList_clicked()
     QSqlQuery* groupList_4 = new QSqlQuery(database);
     QSqlQuery* group_mentors4 = new QSqlQuery(database);
 
-    // Prepare the date to be shown in the tables
+    // Prepare the data to be shown in the tables
     groupList->prepare("SELECT firstName FROM mentees WHERE group_id = 1");
     group_mentors1->prepare("SELECT firstName FROM mentors WHERE group_id = 1");
 
@@ -97,7 +97,7 @@ void Group::on_load_groupList_clicked()
     groupList_4->prepare("SELECT firstName FROM mentees WHERE group_id = 4");
     group_mentors4->prepare("SELECT firstName FROM mentors WHERE group_id = 4");
 
-    // Execute and display queries
+    // Execute and display queries for each group
     groupList->exec();
     group_mentors1->exec();
 
