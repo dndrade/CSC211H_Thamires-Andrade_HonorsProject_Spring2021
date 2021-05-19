@@ -1,5 +1,5 @@
 # Make-A-Thon ADM
-## _A simple management system for participants._
+## _A simple management system._
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
@@ -39,8 +39,8 @@ Install Qt and XAMPP and start the server.
 
 ## Drivers
 
-In order to run your program with MySQL, the following drivers are needed.
-Instructions on how to use them in your own application are linked below.
+In order to run the program with MySQL, the following drivers are needed.
+Instructions on how to use them on your own application are linked below.
 
 | Driver | Github |
 | ------ | ------ |
